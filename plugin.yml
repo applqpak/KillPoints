@@ -1,0 +1,8 @@
+name: KillPoints
+version: 1.0.0
+author: applqpak
+api: ["1.0.0"]
+main: applqpak.KillPoints.Main
+permissions:
+  killpoints.command:
+    default: op

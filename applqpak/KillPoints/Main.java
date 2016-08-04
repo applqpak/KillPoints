@@ -21,7 +21,7 @@ public class Main extends PluginBase implements CommandExecutor
 
     this.getDataFolder().mkdirs();
 
-    if(!(new File(this.getDataFolder(), "config.yml").exists())
+    if(!(new File(this.getDataFolder(), "config.yml").exists()))
     {
 
       saveResource("config.yml");

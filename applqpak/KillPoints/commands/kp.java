@@ -16,7 +16,7 @@ public class kp extends VanillaCommand
   public kp(Main plugin)
   {
 
-    super("kp", "killpoints.command", "/kp");
+    super("killpoints", "killpoints.command", "/killpoints", new String[]{"kp"});
 
     this.setPermission("killpoints.command");
 

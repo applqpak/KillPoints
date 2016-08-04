@@ -40,7 +40,7 @@ public class EventListener implements Listener
 
         victim.sendMessage(TextFormat.RED + "You have lost -1 KillPoint(s).");
 
-        this.plugin.config.set(victim.getName().toLowerCase(), this.plugin.config.getInt(victim.getName().toLowerCase()) + 1);
+        this.plugin.config.set(victim.getName().toLowerCase(), this.plugin.config.getInt(victim.getName().toLowerCase()) - 1);
 
       }
 

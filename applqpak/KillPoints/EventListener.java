@@ -2,7 +2,7 @@ package applqpak.KillPoints;
 
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.EventHandler;
-import cn.nukkit.event.player.PlayerDeathEvent;
+import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.event.entity.EntityDamageByEntityEvent;
 import cn.nukkit.utils.TextFormat;
 import cn.nukkit.Player;
@@ -21,26 +21,48 @@ public class EventListener implements Listener
 
   @EventHandler
 
-  public void onPlayerDeath(PlayerDeathEvent event)
+  public void onEntityDamage(EntityDamageEvent event)
   {
 
-    if(event.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent)
+    if(event instanceof EntityDamageByEntityEvent && event.getDamager() instanceof Player)
     {
+
+      Player attacker = event.getDamager();
 
       Player victim = event.getEntity();
 
-      if(event.getEntity().getLastDamageCause().getDamager() instanceof Player)
+      if(victim.getHealth() == 0)
       {
 
-        Player killer = event.getEntity().getLastDamageCause().getDamager();
+        attacker.sendMessage(TextFormat.GREEN + "You have earned +1 KillPoints.");
 
-        killer.sendMessage(TextFormat.GREEN + "You have earned +1 KillPoint(s).");
+        if(this.plugin.config.exists(attacker.getName().toLowerCase())
+        {
 
-        this.plugin.config.set(killer.getName().toLowerCase(), this.plugin.config.getInt(killer.getName().toLowerCase()) + 1);
+          this.plugin.config.set(attacker.getName().toLowerCase(), this.plugin.config.getInt(attacker.getName().toLowerCase()) + 1);
 
-        victim.sendMessage(TextFormat.RED + "You have lost -1 KillPoint(s).");
+          victim.sendMessage(TextFormat.RED + "You have lost -1 KillPoints.");
 
-        this.plugin.config.set(victim.getName().toLowerCase(), this.plugin.config.getInt(victim.getName().toLowerCase()) - 1);
+          if(this.plugin.config.exists(victim.getName().toLowerCase()))
+          {
+
+            this.plugin.config.set(victim.getName().toLowerCase(), this.plugin.config.getInt(victim.getName().toLowerCase()) - 1);
+
+          }
+          else
+          {
+
+            this.plugin.config.set(victim.getName().toLowerCase(), 0);
+
+          }
+
+        }
+        else
+        {
+
+          this.plugin.config.set(attacker.getName().toLowerCase(), 1);
+
+        }
 
       }
 

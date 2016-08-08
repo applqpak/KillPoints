@@ -16,9 +16,11 @@ public class kp extends VanillaCommand
   public kp(Main plugin)
   {
 
-    super("killpoints", "killpoints.command", "/killpoints", new String[]{"kp"});
+    super("killpoints", "KillPoints command.", "/killpoints");
 
     this.setPermission("killpoints.command");
+
+    this.setAliases(new String[]{"kp"});
 
     this.plugin = plugin;
 
@@ -29,16 +31,27 @@ public class kp extends VanillaCommand
   public boolean execute(CommandSender sender, String label, String[] args)
   {
 
-    if(this.plugin.config.exists(sender.getName().toLowerCase()))
+    if(!(this.testPermission(sender)))
     {
 
-      sender.sendMessage(TextFormat.GREEN + "You have " + this.plugin.config.getString(sender.getName().toLowerCase()) + " KillPoints.");
+      return;
 
     }
     else
     {
 
-      sender.sendMessage(TextFormat.RED + "You have no KillPoints.");
+      if(this.plugin.config.exists(sender.getName().toLowerCase()))
+      {
+
+        sender.sendMessage(TextFormat.GREEN + "You have " + this.plugin.config.getString(sender.getName().toLowerCase()) + " KillPoints.");
+
+      }
+      else
+      {
+
+        sender.sendMessage(TextFormat.RED + "You have no KillPoints.");
+
+      }
 
     }
 
